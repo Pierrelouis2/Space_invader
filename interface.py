@@ -28,9 +28,10 @@ class alien():
     canvas.create_rectangle()
 #class jeu():
 
- #   def __init__(self) :
         
 
 
 
 fenetre.mainloop()
+
+
