@@ -1,5 +1,5 @@
 from tkinter import *
-
+import fonction as fct
 
 fenetre = Tk()
 
@@ -19,11 +19,11 @@ bouton.pack()
 canvas = Canvas(fenetre, width=700, height=500, background='yellow')
 canvas.pack()
 
-#class jeu():
 
- #   def __init__(self) :
         
 
 
 
 fenetre.mainloop()
+
+
