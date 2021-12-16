@@ -1,5 +1,27 @@
 from tkinter import *
 fenetre = Tk()
+
+class alien():
+    def __init__(self,fen) :   
+        self.canvas = Canvas(fen)
+        self.posx = []
+        self.ent = fct.Entity(1,[0,0],1)
+        self.rectangle = self.canvas.create_rectangle(5,5,25,25,fill='black')
+        self.canvas.pack()
+    def mouvement(self,dir) :
+        self.posx = self.ent.path_monster(700,500,10,dir)
+        self.canvas.move(self.rectangle,self.posx,0)
+
+
+
+
+alien1=alien(fenetre)
+
+
+
+
+
+
 photo = PhotoImage(file="backgroundimage.png")
 
 
@@ -34,5 +56,6 @@ canvas.pack()
 
 
 fenetre.mainloop()
+
 
 
