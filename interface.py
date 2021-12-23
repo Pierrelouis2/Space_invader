@@ -1,71 +1,72 @@
 from tkinter import *
 import fonction as fct
-fenetre = Tk()
-photo = PhotoImage(file="backgroundimage.png")
 
-frame1=Frame(fenetre)
-frame2=Frame(fenetre)
-frame2.pack(side=TOP)
+
+fen = Tk()
+
+frame1=Frame(fen)
 frame1.pack(side=TOP)
 
-class alien():
-    def __init__(self,fen) :   
-        self.canvas = Canvas(fen)
-        self.posx = []
-        self.ent = fct.Entity(1,[0,0],1)
-        self.rectangle = self.canvas.create_rectangle(5,5,25,25,fill='black')
-        self.canvas.pack()
-    def mouvement(self,dir) :
-        self.posx = self.ent.path_monster(700,500,10,dir)
-        self.canvas.move(self.rectangle,self.posx,0)
-
-
-
-
-alien1=alien(frame2)
-
-
-
-
-
-
-
-
-
-
-label = Label(fenetre, text="Bienvenue dans Space Invader", bg="#d39fce")
+#titre
+label = Label(fen, text="Bienvenue dans Space Invader", bg="#d39fce")
 label.pack()
 
-
-
-bouton = Checkbutton(fenetre, text="Nouveau?")
-bouton.pack()
-
 # bouton de sortie
-bouton=Button(fenetre, text="Fermer", command=fenetre.quit)
+bouton=Button(fen, text="Fermer", command=fen.quit)
 bouton.pack()
 
 # canvas
-
-
+photo = PhotoImage(file="backgroundimage.png")
 canvas = Canvas(frame1, width=photo.width(), height=photo.height(), background="white")
 canvas.create_image(0, 0, anchor=NW, image=photo)
-#rectangle=canvas.create_oval(25,50,25,50,fill='red')
-Button(fenetre, text ='Niveau précedent').pack(side='left', padx=5, pady=5)
-Button(fenetre, text ='Niveau suivant').pack(side='right', padx=5, pady=5)
 canvas.pack()
 
-
-#class alien():
-   # def __init__(self):
-    #   self.create_rectangle()
-#class jeu():
-
-        
+#bouton
+Button(fen, text ='Niveau précedent').pack(side='left', padx=5, pady=5)
+Button(fen, text ='Niveau suivant').pack(side='right', padx=5, pady=5)
 
 
+#création ennemy
+def init_ennemy(lvl) :
+    global liste_enemy,x2,y2
+    ligne1 = []
+    ligne2=[]
+    ligne3=[]
+    x1= 5
+    x2 = 25
+    y1 = 5
+    y2 = 25
+    liste_enemy = []
+    for j in range(3) :
+        for i in range(lvl) :
 
-fenetre.mainloop()
+            liste_enemy.append(canvas.create_rectangle(x1,y1,x2,y2,fill="red"))
+            x1+= 50
+            x2 += 50
+            print(x2)
+    
+
+#Déplacement ennemy
+global dir
+dir = 5
+def mouv() :
+    global liste_enemy,dir
+    
+    print(canvas.coords(liste_enemy[len(liste_enemy)-1])[2],"cpppr",canvas.winfo_reqwidth())
+    if canvas.coords(liste_enemy[len(liste_enemy)-1])[2] > canvas.winfo_reqwidth() :
+        dir = -5
+        print(dir)
+    elif canvas.coords(liste_enemy[0])[2] < 30: 
+        dir = 5
+    for i in liste_enemy :
+        canvas.move(i,dir,0)
+    fen.after(50,mouv)
+
+init_ennemy(8)
+mouv()
+print(canvas.coords(liste_enemy[0]))
+print(canvas.winfo_reqwidth())
+fen.mainloop()
 
 
 
