@@ -7,13 +7,17 @@ fen = Tk()
 frame1=Frame(fen)
 frame1.pack(side=TOP)
 
-#titre
-label = Label(fen, text="Bienvenue dans Space Invader", bg="#d39fce")
+#titre + score
+score = "2"
+texte = "Bienvenue dans Space Invader" + score
+label = Label(fen, text=texte, bg="#d39fce")
 label.pack()
 
 # bouton de sortie
 bouton=Button(fen, text="Fermer", command=fen.quit)
 bouton.pack()
+
+
 
 # canvas
 photo = PhotoImage(file="backgroundimage.png")
@@ -27,8 +31,14 @@ Button(fen, text ='Niveau suivant').pack(side='right', padx=5, pady=5)
 
 
 #création ennemy
+global liste_enemy 
+global mouv_pass
+mouv_pass = 1
+liste_enemy = []
 def init_ennemy(lvl) :
-    global liste_enemy,x2,y2
+    global liste_enemy, x2,y2,mouv_pass
+    for k in liste_enemy :
+        canvas.delete(k)#penser a reset les ennemy du canvas
     ligne1 = []
     ligne2=[]
     ligne3=[]
@@ -37,14 +47,16 @@ def init_ennemy(lvl) :
     y1 = 5
     y2 = 25
     liste_enemy = []
-    for j in range(3) :
-        for i in range(lvl) :
-
-            liste_enemy.append(canvas.create_rectangle(x1,y1,x2,y2,fill="red"))
-            x1+= 50
-            x2 += 50
-            print(x2)
     
+    for i in range(lvl) :
+
+        liste_enemy.append(canvas.create_rectangle(x1,y1,x2,y2,fill="red"))
+        x1+= 50
+        x2 += 50
+        print(x2)
+    if mouv_pass == 1 :
+        mouv()
+        mouv_pass = 0
 
 #Déplacement ennemy
 global dir
@@ -62,10 +74,38 @@ def mouv() :
         canvas.move(i,dir,0)
     fen.after(50,mouv)
 
-init_ennemy(8)
-mouv()
-print(canvas.coords(liste_enemy[0]))
-print(canvas.winfo_reqwidth())
+#bouton début de jeu
+bouton_jouer = Button(fen, text="Jouer", command=lambda : init_ennemy(5))
+bouton_jouer.pack()
+
+
+#mouvement du canon
+
+#def du canon
+"""""
+img_canon = PhotoImage ( file = "lighter.gif" )
+canon = canvas.create_image(300,300,image =img_canon,anchor="nw")
+"""""
+canon = canvas.create_oval(300,290,330,320,fill="yellow")
+
+#a droite du canon
+def droite(event) :
+    if canvas.coords(canon)[2] < 605 :
+        canvas.move(canon,10,0)
+    else :
+        print("pas bon droite")
+canvas.bind_all('<Right>', droite)
+
+#a gauche du canon
+def gauche(event) :
+    if canvas.coords(canon)[0] >10 :
+        canvas.move(canon,-10,0)
+    else :
+        print("pas bon gauche")
+canvas.bind_all('<Left>', gauche)
+
+print(canvas.coords(canon))
+
 fen.mainloop()
 
 
