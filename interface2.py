@@ -26,6 +26,10 @@ for i in range(10):
         
         canevas.move(j,5,0)
         
-
+liste = [1,2,3]
+for i in liste :
+    print(liste)
+    liste.pop(0)
+    print(liste)
 
 fen.mainloop()
