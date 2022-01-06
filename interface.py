@@ -20,7 +20,7 @@ bouton.pack()
 
 
 # canvas
-photo = PhotoImage(file="image/backgroundimage.png")
+photo = PhotoImage(file="image/grand_background.png")
 canvas = Canvas(frame1, width=photo.width(), height=photo.height(), background="white")
 canvas.create_image(0, 0, anchor=NW, image=photo)
 canvas.pack()
@@ -30,8 +30,8 @@ Button(fen, text ='Niveau précedent').pack(side='left', padx=5, pady=5)
 Button(fen, text ='Niveau suivant').pack(side='right', padx=5, pady=5)
 
 #création joueur
-player = fct.joueur(
-    vie=3,coord=[315,305],nom_image="image/lighter.gif",canvas=canvas)
+player = fct.Joueur(
+    vie=3,coord=[920,940],nom_image="image/lighter.gif",canvas=canvas)
 player.create()
 
 #création ennemy

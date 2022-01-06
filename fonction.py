@@ -13,7 +13,7 @@ class Entity() :
 
     def create(self):
         self.photo=PhotoImage(file=self.nom_image)
-        self.obj = self.canvas.create_image(self.coord[0],self.coord[1],self.photo)
+        self.obj = self.canvas.create_image(self.coord[0],self.coord[1],image=self.photo)
         
 
 class Monstre(Entity):
