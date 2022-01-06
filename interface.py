@@ -16,8 +16,7 @@ label = Label(frame1, text=texte, bg="blue")
 label.pack()
 
 # bouton de sortie
-bouton=Button(frame1, text="
-Fermer", command=fen.quit)
+bouton=Button(frame1, text="Fermer", command=fen.quit)
 bouton.pack()
 
 
