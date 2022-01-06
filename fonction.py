@@ -1,4 +1,5 @@
 import time
+from tkinter.constants import TRUE
 
 
 
@@ -29,7 +30,7 @@ class monstre():
                     
 class joueur(entity):
 
-
+ TRUE
 
 
 
