@@ -2,7 +2,6 @@ import fonction as fct
 from tkinter import *
 
 
-
 fen = Tk()
 
 frame1=Frame(fen)
@@ -41,14 +40,13 @@ canvas.bind('<Key>', player.mouvement)
 
 
 #création ennemy
-def init_ennemy(lvl) :
-    liste_enemy =[]
-    x = 10
-    y = 10
-    for i in range(lvl) :
-        liste_enemy.append(fct.monstre(
-            vie=1,coord=[x,y],nom_image="image/lighter.gif",canvas=canvas)) #mettre les arg
-        x += 20
+
+
+monde_mechant = fct.Monde(canvas=canvas)
+monde_mechant.create_monster(lvl=5)
+
+
+    
 
 #Déplacement ennemy
 global dir

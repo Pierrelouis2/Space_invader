@@ -12,27 +12,16 @@ class Entity() :
         self.nom_image=nom_image
 
     def create(self):
+        print("test create")
         self.photo=PhotoImage(file=self.nom_image)
         self.obj = self.canvas.create_image(self.coord[0],self.coord[1],image=self.photo)
         
 
 class Monstre(Entity):
-    def __init__(self):
+  
+        
 
         pass
-    def path_monster(self,xmax,ymax,vitesse,dir) : #xmax, ymax limites du canvas #fait droite ou gauche en fonction de dir
-        
-    
-        print(self.canvas.coords(self.liste_enemy[len(self.liste_enemy)-1])[2],"cpppr",self.canvas.winfo_reqwidth())
-        if self.canvas.coords(self.liste_enemy[len(self.liste_enemy)-1])[2] > self.canvas.winfo_reqwidth() -20 :
-            dir = -5
-            print(dir)
-        elif self.canvas.coords(self.liste_enemy[0])[2] < 30: 
-            dir = 5
-        for i in self.liste_enemy :
-            self.canvas.move(i,dir,0)
-        fen.after(50,mouv)
-        
                     
 class Joueur(Entity):
     def mouvement(self,event) :
@@ -51,6 +40,37 @@ class Joueur(Entity):
 #    canvas.bind_all('<Left>', gauche)
  
 
-    pass
 
 
+class Monde () :
+    def __init__(self,canvas) :
+        self.canvas= canvas
+        self.liste_enemy =[]
+    def create_monster(self,lvl) :
+        self.lvl = lvl
+        
+        x = 60
+        y = 50
+        print("test1")
+        for i in range(self.lvl) :
+            print("test2")
+            mechant = Monstre(
+                vie=1,coord=[x,y],nom_image="image/lighter.gif",canvas=self.canvas)
+            mechant.create()
+            self.liste_enemy.append(mechant)
+            x += 150
+            print(self.liste_enemy,"testestest")
+        self.path_monster(5)
+
+    def path_monster(self,dir) :
+
+        print(self.canvas.coords(self.liste_enemy[0].obj),'testte')
+        
+        if self.canvas.coords(self.liste_enemy[len(self.liste_enemy)-1].obj)[0] > self.canvas.winfo_reqwidth() -20 :
+            dir = -5
+            print(dir)
+        elif self.canvas.coords(self.liste_enemy[0].obj)[0] < 30: 
+            dir = 5
+        for i in self.liste_enemy :
+            self.canvas.move(i,dir,0)
+        self.canvas.after(50,lambda : self.path_monster(dir,self.liste_enemy))
