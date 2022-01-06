@@ -18,7 +18,6 @@ bouton=Button(fen, text="Fermer", command=fen.quit)
 bouton.pack()
 
 
-
 # canvas
 photo = PhotoImage(file="backgroundimage.png")
 canvas = Canvas(frame1, width=photo.width(), height=photo.height(), background="white")
@@ -29,34 +28,17 @@ canvas.pack()
 Button(fen, text ='Niveau précedent').pack(side='left', padx=5, pady=5)
 Button(fen, text ='Niveau suivant').pack(side='right', padx=5, pady=5)
 
+#création joueur
+player = fct.joueur(
+    vie=3,coord=[315,305],nom_image="image/lighter.gif",canvas=canvas)
+player.create(tag='joueur')
 
 #création ennemy
-global liste_enemy 
-global mouv_pass
-mouv_pass = 1
-liste_enemy = []
 def init_ennemy(lvl) :
-    global liste_enemy, x2,y2,mouv_pass
-    for k in liste_enemy :
-        canvas.delete(k)#penser a reset les ennemy du canvas
-    ligne1 = []
-    ligne2=[]
-    ligne3=[]
-    x1= 5
-    x2 = 25
-    y1 = 5
-    y2 = 25
-    liste_enemy = []
-    
+    liste_enemy =[]
     for i in range(lvl) :
+       liste_enemy.append(fct.monstre()) #mettre les arg
 
-        liste_enemy.append(canvas.create_rectangle(x1,y1,x2,y2,fill="red"))
-        x1+= 50
-        x2 += 50
-        print(x2)
-    if mouv_pass == 1 :
-        mouv()
-        mouv_pass = 0
 
 #Déplacement ennemy
 global dir

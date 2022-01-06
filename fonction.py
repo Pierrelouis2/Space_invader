@@ -17,7 +17,8 @@ class entity() :
         x2 += 50
         print(x2)
 
-class monstre():
+class monstre(entity):
+    def __init__(self):
 
         
     def path_monster(self,xmax,ymax,vitesse,dir) : #xmax, ymax limites du canvas #fait droite ou gauche en fonction de dir
