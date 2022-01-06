@@ -2,14 +2,14 @@ import time
 
 
 
-class Entity() :
+class entity() :
     def __init__(self,vie,coord,forme,canvas) :
         self.coord = coord #position de l'entité au début
         self.forme = forme #forme de l'entité
         self.life = vie #vie de l'entité
         self.canvas=canvas
 
-class Monstre():
+class monstre():
     def __init__(self):
 
         
@@ -27,6 +27,7 @@ class Monstre():
         fen.after(50,mouv)
         
                     
+class joueur(entity):
 
 
 
