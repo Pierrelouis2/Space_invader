@@ -10,7 +10,7 @@ class entity() :
         self.life = vie #vie de l'entité
         self.canvas=canvas
 
-class monstre():
+class monstre(entity):
     def __init__(self):
 
         
