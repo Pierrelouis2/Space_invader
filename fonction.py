@@ -12,7 +12,7 @@ class Entity() :
         self.nom_image=nom_image
 
     def create(self):
-        print("test create")
+
         self.photo=PhotoImage(file=self.nom_image)
         self.obj = self.canvas.create_image(self.coord[0],self.coord[1],image=self.photo)
         
@@ -46,6 +46,54 @@ class Monde () :
     def __init__(self,canvas) :
         self.canvas= canvas
         self.liste_enemy =[]
+        self.player = Joueur(
+            vie=3,coord=[920,860],nom_image="image/lighter.gif",canvas=self.canvas)
+        self.player.create()
+
+
+
+    def jouer(self) :
+        print(self.liste_enemy)
+        print(self.canvas.find_all())
+        for i in self.liste_enemy :
+            self.canvas.delete(i.obj)
+        self.canvas.delete(self.player.obj)
+        self.liste_enemy = []
+        self.player = ""
+        print("2")
+        print(self.liste_enemy)
+        print(self.canvas.find_all())
+
+
+
+
+
+
+        self.player = Joueur(
+            vie=3,coord=[920,860],nom_image="image/lighter.gif",canvas=self.canvas)
+        self.player.create()
+        
+        self.create_monster(lvl=5)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     def create_monster(self,lvl) :
         self.lvl = lvl
         
@@ -59,18 +107,16 @@ class Monde () :
             mechant.create()
             self.liste_enemy.append(mechant)
             x += 150
-            print(self.liste_enemy,"testestest")
-        self.path_monster(5)
+        self.path_monster()
+    def path_monster(self,dir=1) :
 
-    def path_monster(self,dir) :
-
-        print(self.canvas.coords(self.liste_enemy[0].obj),'testte')
+        print(self.liste_enemy)
         
         if self.canvas.coords(self.liste_enemy[len(self.liste_enemy)-1].obj)[0] > self.canvas.winfo_reqwidth() -20 :
-            dir = -5
-            print(dir)
+            dir = -1
+            
         elif self.canvas.coords(self.liste_enemy[0].obj)[0] < 30: 
-            dir = 5
-        for i in self.liste_enemy :
-            self.canvas.move(i,dir,0)
-        self.canvas.after(50,lambda : self.path_monster(dir,self.liste_enemy))
+            dir = 1
+        for i in self.liste_enemy:
+            self.canvas.move(i.obj,dir,0)
+        self.canvas.after(10,lambda : self.path_monster(dir))

@@ -6,8 +6,7 @@ fen = Tk()
 
 frame1=Frame(fen)
 frame1.pack(side=TOP)
-frame2=Frame(fen)
-frame2.pack(side=BOTTOM)
+
 
 #titre + score
 score = "Score : 2"
@@ -16,10 +15,8 @@ label = Label(frame1, text=texte, bg="blue")
 label.pack()
 
 # bouton de sortie
-bouton=Button(frame1, text="
-Fermer", command=fen.quit)
+bouton=Button(frame1, text="Fermer", command=fen.quit)
 bouton.pack()
-
 
 # canvas
 photo = PhotoImage(file="image/grand_background.png")
@@ -30,74 +27,41 @@ canvas.pack()
 #bouton
 Button(frame1, text ='Niveau précedent').pack(side='left', padx=5, pady=5)
 Button(frame1, text ='Niveau suivant').pack(side='right', padx=5, pady=5)
+"""
 
-#création joueur
-player = fct.Joueur(
-    vie=3,coord=[920,860],nom_image="image/lighter.gif",canvas=canvas)
-player.create()
-print(player.obj)
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+"""
+
+#création du monde
+monde = fct.Monde(canvas=canvas)
+
 
 #mouvement du joueur 
 canvas.focus_set()
-canvas.bind('<Key>', player.mouvement)
+canvas.bind('<Key>', monde.player.mouvement)
 
 
-#création ennemy
-
-
-monde_mechant = fct.Monde(canvas=canvas)
-monde_mechant.create_monster(lvl=5)
-
-
-    
-
-#Déplacement ennemy
-global dir
-dir = 5
-def mouv() :
-    global liste_enemy,dir
-    
-    print(canvas.coords(liste_enemy[len(liste_enemy)-1])[2],"cpppr",canvas.winfo_reqwidth())
-    if canvas.coords(liste_enemy[len(liste_enemy)-1])[2] > canvas.winfo_reqwidth() -20 :
-        dir = -5
-        print(dir)
-    elif canvas.coords(liste_enemy[0])[2] < 30: 
-        dir = 5
-    for i in liste_enemy :
-        canvas.move(i,dir,0)
-    fen.after(50,mouv)
-
-#bouton début de jeu
-bouton_jouer = Button(frame1, text="Jouer", command=lambda : init_ennemy(5))
+ #bouton début de jeu
+bouton_jouer = Button(frame1, text="Jouer", command=monde.jouer )
 bouton_jouer.pack()
+   
 
 
-#mouvement du canon
-"""""
-img_canon = PhotoImage ( file = "lighter.gif" )
-canon = canvas.create_image(300,300,image =img_canon,anchor="nw")
-"""""
-#def du canon
-global canon
-canon = canvas.create_oval(300,290,330,320,fill="yellow")
 
-#a droite du canon
-def droite(event) :
-    if canvas.coords(canon)[2] < 605 :
-        canvas.move(canon,10,0)
-    else :
-        print("pas bon droite")
-canvas.bind_all('<Right>', droite)
 
-#a gauche du canon
-def gauche(event) :
-    if canvas.coords(canon)[0] >10 :
-        canvas.move(canon,-10,0)
-    else :
-        print("pas bon gauche")
-canvas.bind_all('<Left>', gauche)
 
-print(canvas.coords(canon))
+
+
+
+
+
+
+
+
+
+
+
 
 #Tire un projectile 
 global liste_projectile
@@ -114,7 +78,7 @@ canvas.bind_all('<space>', tir)
 
 def trajectoire() :
     global liste_projectile
-    print(liste_projectile)
+    
     for i in liste_projectile :
         
         if canvas.coords(i)[3] > 5 :
