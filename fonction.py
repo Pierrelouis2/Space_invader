@@ -35,7 +35,20 @@ class Monstre(Entity):
         
                     
 class Joueur(Entity):
-
+    def mouvement(self,event) :
+        touche = event.keysym
+        if touche == "Right" :
+            
+            if self.canvas.coords(self.obj)[0] < 1200 :
+                self.canvas.move(self.obj,10,0)
+            else :
+                print("pas bon droite")
+        if touche == "Left" :
+            if self.canvas.coords(self.obj)[0] >10 :
+                    self.canvas.move(self.obj,-10,0)
+            else :
+                print("pas bon gauche")
+#    canvas.bind_all('<Left>', gauche)
  
 
     pass

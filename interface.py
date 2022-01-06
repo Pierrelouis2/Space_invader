@@ -33,13 +33,22 @@ Button(fen, text ='Niveau suivant').pack(side='right', padx=5, pady=5)
 player = fct.Joueur(
     vie=3,coord=[920,940],nom_image="image/lighter.gif",canvas=canvas)
 player.create()
+print(player.obj)
+
+#mouvement du joueur 
+canvas.focus_set()
+canvas.bind('<Key>', player.mouvement)
+
 
 #création ennemy
 def init_ennemy(lvl) :
     liste_enemy =[]
+    x = 10
+    y = 10
     for i in range(lvl) :
-       liste_enemy.append(fct.monstre()) #mettre les arg
-
+        liste_enemy.append(fct.monstre(
+            vie=1,coord=[x,y],nom_image="image/lighter.gif",canvas=canvas)) #mettre les arg
+        x += 20
 
 #Déplacement ennemy
 global dir
