@@ -6,31 +6,34 @@ fen = Tk()
 
 frame1=Frame(fen)
 frame1.pack(side=TOP)
+frame2=Frame(fen)
+frame2.pack(side=BOTTOM)
 
 #titre + score
-score = "2"
-texte = "Bienvenue dans Space Invader" + score
-label = Label(fen, text=texte, bg="#d39fce")
+score = "Score : 2"
+texte = "Bienvenue dans Space Invader                                                                                                                       " + score
+label = Label(frame1, text=texte, bg="blue")
 label.pack()
 
 # bouton de sortie
-bouton=Button(fen, text="Fermer", command=fen.quit)
+bouton=Button(frame1, text="
+Fermer", command=fen.quit)
 bouton.pack()
 
 
 # canvas
 photo = PhotoImage(file="image/grand_background.png")
-canvas = Canvas(frame1, width=photo.width(), height=photo.height(), background="white")
+canvas = Canvas(fen, width=photo.width(), height=photo.height(), background="white")
 canvas.create_image(0, 0, anchor=NW, image=photo)
 canvas.pack()
 
 #bouton
-Button(fen, text ='Niveau précedent').pack(side='left', padx=5, pady=5)
-Button(fen, text ='Niveau suivant').pack(side='right', padx=5, pady=5)
+Button(frame1, text ='Niveau précedent').pack(side='left', padx=5, pady=5)
+Button(frame1, text ='Niveau suivant').pack(side='right', padx=5, pady=5)
 
 #création joueur
 player = fct.Joueur(
-    vie=3,coord=[920,940],nom_image="image/lighter.gif",canvas=canvas)
+    vie=3,coord=[920,860],nom_image="image/lighter.gif",canvas=canvas)
 player.create()
 print(player.obj)
 
@@ -65,7 +68,7 @@ def mouv() :
     fen.after(50,mouv)
 
 #bouton début de jeu
-bouton_jouer = Button(fen, text="Jouer", command=lambda : init_ennemy(5))
+bouton_jouer = Button(frame1, text="Jouer", command=lambda : init_ennemy(5))
 bouton_jouer.pack()
 
 
