@@ -1,5 +1,6 @@
-from tkinter import *
 import fonction as fct
+from tkinter import *
+
 
 
 fen = Tk()
@@ -19,7 +20,7 @@ bouton.pack()
 
 
 # canvas
-photo = PhotoImage(file="backgroundimage.png")
+photo = PhotoImage(file="image/backgroundimage.png")
 canvas = Canvas(frame1, width=photo.width(), height=photo.height(), background="white")
 canvas.create_image(0, 0, anchor=NW, image=photo)
 canvas.pack()
@@ -31,7 +32,7 @@ Button(fen, text ='Niveau suivant').pack(side='right', padx=5, pady=5)
 #création joueur
 player = fct.joueur(
     vie=3,coord=[315,305],nom_image="image/lighter.gif",canvas=canvas)
-player.create(tag='joueur')
+player.create()
 
 #création ennemy
 def init_ennemy(lvl) :
