@@ -4,7 +4,7 @@ from tkinter import *
 
 
 
-class entity() :
+class Entity() :
     def __init__(self,vie,coord,canvas,nom_image) :
         self.coord = coord #position de l'entité au début
         self.life = vie #vie de l'entité
@@ -17,7 +17,7 @@ class entity() :
         x2 += 50
         print(x2)
 
-class monstre(entity):
+class Monstre(Entity):
     def __init__(self):
 
         
@@ -35,7 +35,7 @@ class monstre(entity):
         fen.after(50,mouv)
         
                     
-class joueur(entity):
+class Joueur(Entity):
 
  
 
