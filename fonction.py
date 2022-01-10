@@ -10,6 +10,7 @@ class Entity() :
         self.life = vie #vie de l'entité
         self.canvas=canvas
         self.nom_image=nom_image
+        self.liste_projectile = []
 
     def create(self):
 
@@ -26,6 +27,8 @@ class Monstre(Entity):
 class Joueur(Entity):
     def mouvement(self,event) :
         touche = event.keysym
+        print(self.obj,"player")
+        print(self.canvas.coords(self.obj))
         if touche == "Right" :
             
             if self.canvas.coords(self.obj)[0] < 1880 :
@@ -37,8 +40,25 @@ class Joueur(Entity):
                     self.canvas.move(self.obj,-10,0)
             else :
                 print("pas bon gauche")
-#    canvas.bind_all('<Left>', gauche)
- 
+    def tir(self) :
+        
+        xp1 = self.canvas.coords(self.obj)[0] +10
+        xp2 = self.canvas.coords(self.obj)[0]  -10
+        yp1 = 320
+        yp2 = 350
+        self.liste_projectile.append(self.canvas.create_rectangle(xp1,yp1,xp2,yp2,fill="green"))
+    
+    def trajectoire(self) :
+    
+        for i in self.liste_projectile :
+            
+            if self.canvas.coords(i)[3] > 5 :
+                self.canvas.move(i,0,-10)
+                
+            else :
+                self.canvas.delete(i) 
+                self.liste_projectile.pop(self.liste_projectile.index(i))
+        self.canvas.after(100,self.trajectoire)
 
 
 
@@ -57,41 +77,11 @@ class Monde () :
         print(self.canvas.find_all())
         for i in self.liste_enemy :
             self.canvas.delete(i.obj)
-        self.canvas.delete(self.player.obj)
-        self.liste_enemy = []
-        self.player = ""
+            del i
         print("2")
         print(self.liste_enemy)
         print(self.canvas.find_all())
-
-
-
-
-
-
-        self.player = Joueur(
-            vie=3,coord=[920,860],nom_image="image/lighter.gif",canvas=self.canvas)
-        self.player.create()
-        
         self.create_monster(lvl=5)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     def create_monster(self,lvl) :
@@ -108,15 +98,21 @@ class Monde () :
             self.liste_enemy.append(mechant)
             x += 150
         self.path_monster()
-    def path_monster(self,dir=1) :
+    def path_monster(self,dir=10) :
 
-        print(self.liste_enemy)
         
         if self.canvas.coords(self.liste_enemy[len(self.liste_enemy)-1].obj)[0] > self.canvas.winfo_reqwidth() -20 :
-            dir = -1
+            dir = -10
             
         elif self.canvas.coords(self.liste_enemy[0].obj)[0] < 30: 
-            dir = 1
+            dir = 10
         for i in self.liste_enemy:
             self.canvas.move(i.obj,dir,0)
         self.canvas.after(10,lambda : self.path_monster(dir))
+
+    def mouv(self,event) :
+        touche = event.keysym
+        if touche == "Right" or touche == "Left" :
+            self.player.mouvement(event)
+        if touche =="space" :
+            self.player.tir()

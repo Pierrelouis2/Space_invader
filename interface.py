@@ -39,7 +39,7 @@ monde = fct.Monde(canvas=canvas)
 
 #mouvement du joueur 
 canvas.focus_set()
-canvas.bind('<Key>', monde.player.mouvement)
+canvas.bind('<Key>', monde.mouv)
 
 
  #bouton début de jeu
@@ -47,7 +47,9 @@ bouton_jouer = Button(frame1, text="Jouer", command=monde.jouer )
 bouton_jouer.pack()
    
 
+#initialisation trajectoire tir
 
+monde.player.trajectoire()
 
 
 
@@ -64,16 +66,16 @@ bouton_jouer.pack()
 
 
 #Tire un projectile 
-global liste_projectile
+""" global liste_projectile
 liste_projectile =[]
 def tir(event) :
     global canon
-    xp1 = canvas.coords(canon)[0] +10
-    xp2 = canvas.coords(canon)[2] -10
+    xp1 = canvas.coords(player.obj)[0] +10
+    xp2 = canvas.coords(player.obj)[2] -10
     yp1 = 320
     yp2 = 350
     liste_projectile.append(canvas.create_rectangle(xp1,yp1,xp2,yp2,fill="green"))
-canvas.bind_all('<space>', tir)
+canvas.bind_all('<space>', tir) """
 #mouvement des tirs
 
 def trajectoire() :
@@ -88,7 +90,7 @@ def trajectoire() :
             canvas.delete(i) 
             liste_projectile.pop(liste_projectile.index(i))
     fen.after(100,trajectoire)
-trajectoire()
+
 fen.mainloop()
 
 
