@@ -44,8 +44,8 @@ class Joueur(Entity):
         
         xp1 = self.canvas.coords(self.obj)[0] +10
         xp2 = self.canvas.coords(self.obj)[0]  -10
-        yp1 = 320
-        yp2 = 350
+        yp1 = 820
+        yp2 = 850
         self.liste_projectile.append(self.canvas.create_rectangle(xp1,yp1,xp2,yp2,fill="green"))
     
     def trajectoire(self) :
@@ -98,14 +98,14 @@ class Monde () :
             self.liste_enemy.append(mechant)
             x += 150
         self.path_monster()
-    def path_monster(self,dir=10) :
+    def path_monster(self,dir=5) :
 
         
         if self.canvas.coords(self.liste_enemy[len(self.liste_enemy)-1].obj)[0] > self.canvas.winfo_reqwidth() -20 :
-            dir = -10
+            dir = -5
             
         elif self.canvas.coords(self.liste_enemy[0].obj)[0] < 30: 
-            dir = 10
+            dir = 5
         for i in self.liste_enemy:
             self.canvas.move(i.obj,dir,0)
         self.canvas.after(10,lambda : self.path_monster(dir))
