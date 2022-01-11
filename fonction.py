@@ -122,17 +122,16 @@ class Monde () :
         
         for j in self.liste_enemy:
             for i in self.player.liste_projectile :
-                print(self.canvas.coords(j.obj),self.canvas.coords(i)
-                if (
-                    self.canvas.coords(j.obj)[0] -20 <= self.canvas.coords(i)[0] <= self.canvas.coords(j.obj)[0] + 20 
-                    ) and (
-                    self.canvas.coords(j.obj)[1] -20 <= self.canvas.coords(i)[1] <= self.canvas.coords(j.obj)[1] + 20
-                    ) :
-                        self.canvas.delete(i)
-                        self.canvas.delete(j.obj)
-                        self.player.liste_projectile.remove(i)
-                        self.liste_enemy.remove(j)
-        self.canvas.after(10,self.mort)
+                print(self.canvas.coords(j.obj),self.canvas.coords(i))
+                if (self.canvas.coords(j.obj)[0] -20 <= self.canvas.coords(i)[0] <= self.canvas.coords(j.obj)[0] + 20 ) and (self.canvas.coords(j.obj)[1] -20 <= self.canvas.coords(i)[1] <= self.canvas.coords(j.obj)[1] + 20 ) :
+                    print("touche")
+                    self.canvas.delete(i)
+                    self.canvas.delete(j.obj)
+                    self.player.liste_projectile.remove(i)
+                    self.liste_enemy.remove(j)
+                else :
+                    pass
+        self.canvas.after(100,self.mort)
 
 
                 
