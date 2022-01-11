@@ -19,7 +19,6 @@ class Entity() :
         
 
 class Monstre(Entity):
-  
         
 
         pass
@@ -42,16 +41,17 @@ class Joueur(Entity):
                 print("pas bon gauche")
     def tir(self) :
         
-        xp1 = self.canvas.coords(self.obj)[0] +10
-        xp2 = self.canvas.coords(self.obj)[0]  -10
-        yp1 = 820
-        yp2 = 850
-        self.liste_projectile.append(self.canvas.create_rectangle(xp1,yp1,xp2,yp2,fill="green"))
+        xp1 = self.canvas.coords(self.obj)[0] +5
+        xp2 = self.canvas.coords(self.obj)[0] -5
+        yp1 = 828
+        yp2 = 842
+        self.liste_projectile.append(self.canvas.create_oval(xp1,yp1,xp2,yp2,fill="yellow"))
+        
     
     def trajectoire(self) :
-    
+        
         for i in self.liste_projectile :
-            
+    
             if self.canvas.coords(i)[3] > 5 :
                 self.canvas.move(i,0,-10)
                 
@@ -70,18 +70,18 @@ class Monde () :
             vie=3,coord=[920,860],nom_image="image/lighter.gif",canvas=self.canvas)
         self.player.create()
 
-
-
     def jouer(self) :
         print(self.liste_enemy)
         print(self.canvas.find_all())
         for i in self.liste_enemy :
             self.canvas.delete(i.obj)
-            del i
+        self.liste_enemy =[]
+        
         print("2")
         print(self.liste_enemy)
-        print(self.canvas.find_all())
+        
         self.create_monster(lvl=5)
+        print(self.canvas.find_all(),'tetet')
 
 
     def create_monster(self,lvl) :
@@ -98,6 +98,7 @@ class Monde () :
             self.liste_enemy.append(mechant)
             x += 150
         self.path_monster()
+
     def path_monster(self,dir=5) :
 
         
@@ -116,3 +117,23 @@ class Monde () :
             self.player.mouvement(event)
         if touche =="space" :
             self.player.tir()
+            
+    def mort(self) :
+        
+        for j in self.liste_enemy:
+            for i in self.player.liste_projectile :
+                print(self.canvas.coords(j.obj),self.canvas.coords(i)
+                if (
+                    self.canvas.coords(j.obj)[0] -20 <= self.canvas.coords(i)[0] <= self.canvas.coords(j.obj)[0] + 20 
+                    ) and (
+                    self.canvas.coords(j.obj)[1] -20 <= self.canvas.coords(i)[1] <= self.canvas.coords(j.obj)[1] + 20
+                    ) :
+                        self.canvas.delete(i)
+                        self.canvas.delete(j.obj)
+                        self.player.liste_projectile.remove(i)
+                        self.liste_enemy.remove(j)
+        self.canvas.after(10,self.mort)
+
+
+                
+            
