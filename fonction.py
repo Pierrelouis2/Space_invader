@@ -19,7 +19,9 @@ class Entity() :
 
         self.photo=PhotoImage(file=self.nom_image)
         self.obj = self.canvas.create_image(self.coord[0],self.coord[1],image=self.photo)
-        
+    def create_gif(self) :
+        self.photo=PhotoImage(file=self.nom_image, format="gif -index 2")
+        self.obj = self.canvas.create_image(self.coord[0],self.coord[1],image=self.photo)
 
 class Monstre(Entity):
         def tir_enemy(self) :
@@ -94,7 +96,7 @@ class Monde () :
         self.liste_enemy =[]
         self.player = Joueur(
             vie=3,coord=[920,860],nom_image="image/lighter.gif",canvas=self.canvas)
-        self.player.create()
+        self.player.create_gif()
         self.score=0
         self.dir_enemy_x = 5
         self.dir_enemy_y = 0
@@ -107,10 +109,14 @@ class Monde () :
         for i in self.liste_enemy :
             self.canvas.delete(i.obj)
         self.liste_enemy =[]
-        self.create_monster(lvl=5)
+        self.lvl=1
+        self.create_monster(lvl=self.lvl)
 
- 
-
+    def niveau(self) :
+        if self.liste_enemy == [] :
+            self.lvl +=1
+            self.create_monster(lvl=self.lvl)
+        self.canvas.after(10,self.niveau)
 
     def create_monster(self,lvl) :
         self.lvl = lvl
@@ -124,9 +130,6 @@ class Monde () :
             mechant.traj_tir_enemy()
             self.liste_enemy.append(mechant)
             x += 150
-
-
-        
 
     def path_monster(self) :
         if len(self.liste_enemy) != 0 :
@@ -144,7 +147,6 @@ class Monde () :
                 self.canvas.move(i.obj,self.dir_enemy_x,self.dir_enemy_y)
         
         self.canvas.after(10,self.path_monster)
-
 
     def tir_enemy_monde(self) :
         if len(self.liste_enemy) != 0 :
@@ -169,8 +171,8 @@ class Monde () :
         detruire_proj = set()
         for j in self.liste_enemy:
             for i in self.player.liste_projectile :
-                colision_X= self.canvas.coords(j.obj)[0] -20 <= self.canvas.coords(i)[0] <= self.canvas.coords(j.obj)[0] + 20
-                colision_Y=self.canvas.coords(j.obj)[1] -20 <= self.canvas.coords(i)[1] <= self.canvas.coords(j.obj)[1] + 20
+                colision_X= self.canvas.coords(j.obj)[0] -60 <= self.canvas.coords(i)[0] <= self.canvas.coords(j.obj)[0] + 60
+                colision_Y=self.canvas.coords(j.obj)[1] -50 <= self.canvas.coords(i)[1] <= self.canvas.coords(j.obj)[1] + 50
                 if (colision_X == True ) and (colision_Y==True ) :
                     detruire_enemy.add(j)
                     detruire_proj.add(i)
@@ -202,10 +204,11 @@ class Monde () :
                 enmy.liste_projectile_enemy.remove(k)
 
         if self.player.life == 0 :
-            pass
+            self.canvas.delete(self.player.obj)
+            self.player= ''
         self.canvas.after(100,self.mort_player)
 
-
-        
+def asteroide(self) :
+    pass
         
             
