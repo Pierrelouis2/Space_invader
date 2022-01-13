@@ -9,9 +9,10 @@ frame1.pack(side=TOP)
 
 
 #titre + score
-score = "Score : 2"
-texte = "Bienvenue dans Space Invader                                                                                                                       " + score
-label = Label(frame1, text=texte, bg="blue")
+score = 0
+texte = StringVar()
+texte.set("Bienvenue dans Space Invader                                                                             Score : "+str(score))
+label = Label(frame1, text=texte.get(), bg="white")
 label.pack()
 
 # bouton de sortie
@@ -34,7 +35,8 @@ Button(frame1, text ='Niveau suivant').pack(side='right', padx=5, pady=5)
 """
 
 #création du monde
-monde = fct.Monde(canvas=canvas)
+monde = fct.Monde(canvas=canvas, texte=texte, mylabel=label)
+score = monde.var
 
 
 #mouvement du joueur                          

@@ -90,8 +90,10 @@ class Joueur(Entity):
 
 
 class Monde () :
-    def __init__(self,canvas) :
+    def __init__(self,canvas, texte, mylabel) :
         self.canvas= canvas
+        self.texte= texte
+        self.label=mylabel
         self.liste_enemy =[]
         self.player = Joueur(
             vie=3,coord=[920,860],nom_image="image/lighter.gif",canvas=self.canvas)
@@ -101,6 +103,8 @@ class Monde () :
         self.dir_enemy_y = 0
         self.lvl =0
 
+        self.var=StringVar()
+        self.var.set("Score="+str(self.score))
 
     def jouer(self) :
         for i in self.liste_enemy :
@@ -157,6 +161,12 @@ class Monde () :
         if touche =="space" :
             self.player.tir()
             
+    def score_fct(self):
+        self.score+=50
+        self.texte.set("Bienvenue dans Space Invader                                                                  Score : "+str(self.score))
+        print(self.score)
+        self.label.configure(text=self.texte.get())
+                
     def mort_enemy(self) :
         detruire_enemy = set()
         detruire_proj = set()
