@@ -46,13 +46,19 @@ canvas.bind('<Key>', monde.mouv)
 bouton_jouer = Button(frame1, text="Jouer", command=monde.jouer )
 bouton_jouer.pack()
    
+#initialisation mvt enemy
+monde.path_monster()
 
 #initialisation trajectoire tir
 monde.player.trajectoire()
 
-#initialisation mort 
-monde.mort()
+#initialisation tir enemy
+monde.tir_enemy_monde()
 
+
+#initialisation mort 
+monde.mort_enemy()
+monde.mort_player()
 
 fen.mainloop()
 
