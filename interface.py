@@ -63,6 +63,9 @@ monde.tir_enemy_monde()
 monde.mort_enemy()
 monde.mort_player()
 
+#initialisation niveau
+monde.niveau()
+
 fen.mainloop()
 
 
