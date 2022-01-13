@@ -27,7 +27,7 @@ canvas.create_image(0, 0, anchor=NW, image=photo)
 canvas.pack()
 
 #bouton
-Button(frame1, text ='Niveau précedent').pack(side='left', padx=5, pady=5)
+Button(frame1, text ='A propos').pack(side='left', padx=5, pady=5)
 Button(frame1, text ='Niveau suivant').pack(side='right', padx=5, pady=5)
 """
 
