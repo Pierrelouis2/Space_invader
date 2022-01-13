@@ -48,7 +48,6 @@ bouton_jouer.pack()
    
 
 #initialisation trajectoire tir
-
 monde.player.trajectoire()
 
 #initialisation mort 

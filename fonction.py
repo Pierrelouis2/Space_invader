@@ -69,6 +69,7 @@ class Monde () :
         self.player = Joueur(
             vie=3,coord=[920,860],nom_image="image/lighter.gif",canvas=self.canvas)
         self.player.create()
+        self.score=0
 
     def jouer(self) :
         print(self.liste_enemy)
@@ -119,18 +120,24 @@ class Monde () :
             self.player.tir()
             
     def mort(self) :
-        
+        self.detruire_enemy = set()
+        self.detruire_proj = set()
         for j in self.liste_enemy:
             for i in self.player.liste_projectile :
-                print(self.canvas.coords(j.obj),self.canvas.coords(i))
-                if (self.canvas.coords(j.obj)[0] -20 <= self.canvas.coords(i)[0] <= self.canvas.coords(j.obj)[0] + 20 ) and (self.canvas.coords(j.obj)[1] -20 <= self.canvas.coords(i)[1] <= self.canvas.coords(j.obj)[1] + 20 ) :
+                colision_X= self.canvas.coords(j.obj)[0] -20 <= self.canvas.coords(i)[0] <= self.canvas.coords(j.obj)[0] + 20
+                colision_Y=self.canvas.coords(j.obj)[1] -20 <= self.canvas.coords(i)[1] <= self.canvas.coords(j.obj)[1] + 20
+                if (colision_X == True ) and (colision_Y==True ) :
+                    self.detruire_enemy.add(j)
+                    self.detruire_proj.add(i)
+                    self.score += 50
                     print("touche")
-                    self.canvas.delete(i)
-                    self.canvas.delete(j.obj)
-                    self.player.liste_projectile.remove(i)
-                    self.liste_enemy.remove(j)
-                else :
-                    pass
+        for k in self.detruire_proj :
+            self.canvas.delete(k)
+            self.player.liste_projectile.remove(k)
+        for t in self.detruire_enemy :
+            self.canvas.delete(t.obj)
+            self.liste_enemy.remove(t)
+        
         self.canvas.after(100,self.mort)
 
 
