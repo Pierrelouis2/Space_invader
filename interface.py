@@ -10,8 +10,9 @@ frame1.pack(side=TOP)
 
 #titre + score
 score = 0
+vie=3
 texte = StringVar()
-texte.set("Bienvenue dans Space Invader                                                                             Score : "+str(score))
+texte.set("Bienvenue dans Space Invader                              Vie : " +str(vie)+"                                              Score : "+str(score))
 label = Label(frame1, text=texte.get(), bg="white")
 label.pack()
 

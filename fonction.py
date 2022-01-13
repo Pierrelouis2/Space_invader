@@ -161,7 +161,7 @@ class Monde () :
             
     def score_fct(self):
         self.score+=50
-        self.texte.set("Bienvenue dans Space Invader                                                                  Score : "+str(self.score))
+        self.texte.set("Bienvenue dans Space Invader                              Vie : " +str(self.player.life)+"                                              Score : "+str(self.score))
         print(self.score)
         self.label.configure(text=self.texte.get())
                 
@@ -184,6 +184,7 @@ class Monde () :
             self.liste_enemy.remove(t)
             self.score_fct()
         self.canvas.after(100,self.mort_enemy)
+
     
     def mort_player(self) :
         for enmy in self.liste_enemy:
@@ -194,6 +195,7 @@ class Monde () :
                 if colision_X and colision_Y :
                     detruire_proj_enemy.add(prj)
                     self.player.life -= 1
+                    self.score_fct()
                     print(detruire_proj_enemy)
 
             for k in detruire_proj_enemy :
