@@ -29,7 +29,7 @@ class Monstre(Entity):
             yp2 = self.canvas.coords(self.obj)[1] +7
             print(self.canvas.coords(self.obj))
             self.liste_projectile_enemy.append(self.canvas.create_oval(xp1,yp1,xp2,yp2,fill="red"))
-            self.traj_tir_enemy()
+            
 
         def traj_tir_enemy(self) :
 
@@ -122,6 +122,7 @@ class Monde () :
             mechant = Monstre(
                 vie=1,coord=[x,y],nom_image="image/alien_transparent.png",canvas=self.canvas)
             mechant.create()
+            mechant.traj_tir_enemy()
             self.liste_enemy.append(mechant)
             x += 150
 
@@ -160,8 +161,8 @@ class Monde () :
             self.player.tir()
             
     def score_fct(self):
-        self.score+=50
-        self.texte.set("Bienvenue dans Space Invader                                                                  Score : "+str(self.score))
+ 
+        self.texte.set("Bienvenue dans Space Invader                              Vie : " +str(self.player.life)+"                                              Score : "+str(self.score))
         print(self.score)
         self.label.configure(text=self.texte.get())
                 
@@ -182,6 +183,7 @@ class Monde () :
         for t in detruire_enemy :
             self.canvas.delete(t.obj)
             self.liste_enemy.remove(t)
+            self.score+=50
             self.score_fct()
         self.canvas.after(100,self.mort_enemy)
     
@@ -189,18 +191,19 @@ class Monde () :
         for enmy in self.liste_enemy:
             detruire_proj_enemy = set()
             for prj  in enmy.liste_projectile_enemy :
-                colision_X= self.canvas.coords(self.player.obj)[0] -20 <= self.canvas.coords(prj)[0] <= self.canvas.coords(self.player.obj)[0] + 20
+                colision_X= self.canvas.coords(self.player.obj)[0] -30 <= self.canvas.coords(prj)[0] <= self.canvas.coords(self.player.obj)[0] + 30
                 colision_Y=self.canvas.coords(self.player.obj)[1] -20 <= self.canvas.coords(prj)[1] <= self.canvas.coords(self.player.obj)[1] + 20
                 if colision_X and colision_Y :
                     detruire_proj_enemy.add(prj)
                     self.player.life -= 1
-                    print(detruire_proj_enemy)
+                    self.score_fct()
+
 
             for k in detruire_proj_enemy :
                 self.canvas.delete(k)
                 enmy.liste_projectile_enemy.remove(k)
-                print("deleete")
-        if self.player.life < 0 :
+
+        if self.player.life == 0 :
             pass
         self.canvas.after(100,self.mort_player)
 
