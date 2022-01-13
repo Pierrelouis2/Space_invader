@@ -177,14 +177,14 @@ class Monde () :
                 if (colision_X == True ) and (colision_Y==True ) :
                     detruire_enemy.add(j)
                     detruire_proj.add(i)
-                    self.score += 50
-                    print("touche")
+ 
         for k in detruire_proj :
             self.canvas.delete(k)
             self.player.liste_projectile.remove(k)
         for t in detruire_enemy :
             self.canvas.delete(t.obj)
             self.liste_enemy.remove(t)
+            self.score_fct()
         self.canvas.after(100,self.mort_enemy)
     
     def mort_player(self) :
