@@ -88,10 +88,9 @@ class Joueur(Entity):
 
 
 class Monde () :
-    def __init__(self,canvas, texte, mylabel) :
+    def __init__(self,canvas, texte) :
         self.canvas= canvas
         self.texte= texte
-        self.label=mylabel
         self.liste_enemy =[]
         self.player = Joueur(
             vie=3,coord=[920,860],nom_image="image/lighter.gif",canvas=self.canvas)
@@ -163,7 +162,6 @@ class Monde () :
         self.score+=50
         self.texte.set("Bienvenue dans Space Invader                                                                  Score : "+str(self.score))
         print(self.score)
-        self.label.configure(text=self.texte.get())
                 
     def mort_enemy(self) :
         detruire_enemy = set()

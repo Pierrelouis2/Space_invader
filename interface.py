@@ -13,7 +13,7 @@ score = 0
 vie=3
 texte = StringVar()
 texte.set("Bienvenue dans Space Invader                              Vie : " +str(vie)+"                                              Score : "+str(score))
-label = Label(frame1, text=texte.get(), bg="white")
+label = Label(frame1, textvariable=texte, bg="white")
 label.pack()
 
 # bouton de sortie
@@ -36,7 +36,7 @@ Button(frame1, text ='Niveau suivant').pack(side='right', padx=5, pady=5)
 """
 
 #création du monde
-monde = fct.Monde(canvas=canvas, texte=texte, mylabel=label)
+monde = fct.Monde(canvas=canvas, texte=texte)
 score = monde.var
 
 
