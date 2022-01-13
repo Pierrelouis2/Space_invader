@@ -23,7 +23,6 @@ class Entity() :
 
 class Monstre(Entity):
         def tir_enemy(self) :
-            print("ovale")
             xp1 = self.canvas.coords(self.obj)[0] -5
             xp2 = self.canvas.coords(self.obj)[0] +5
             yp1 = self.canvas.coords(self.obj)[1] -7
@@ -35,14 +34,14 @@ class Monstre(Entity):
         def traj_tir_enemy(self) :
 
             for i in self.liste_projectile_enemy :
-    
-                if self.canvas.coords(i)[1] < 1200 :
-                    self.canvas.move(i,0,10)
+                if i != [] :
+                    if self.canvas.coords(i)[1] < 1200 :
+                        self.canvas.move(i,0,10)
 
-                
-                else :
-                    self.canvas.delete(i) 
-                    self.liste_projectile_enemy.remove(i)
+                    
+                    else :
+                        self.canvas.delete(i) 
+                        self.liste_projectile_enemy.remove(i)
             self.canvas.after(100,self.traj_tir_enemy)
 
             
@@ -53,7 +52,6 @@ class Monstre(Entity):
 class Joueur(Entity):
     def mouvement(self,event) :
         touche = event.keysym
-        print(self.obj,"player")
         print(self.canvas.coords(self.obj))
         if touche == "Right" :
             
@@ -188,20 +186,20 @@ class Monde () :
         self.canvas.after(100,self.mort_enemy)
     
     def mort_player(self) :
-        detruire_proj_enemy = set()
         for enmy in self.liste_enemy:
-            
+            detruire_proj_enemy = set()
             for prj  in enmy.liste_projectile_enemy :
                 colision_X= self.canvas.coords(self.player.obj)[0] -20 <= self.canvas.coords(prj)[0] <= self.canvas.coords(self.player.obj)[0] + 20
                 colision_Y=self.canvas.coords(self.player.obj)[1] -20 <= self.canvas.coords(prj)[1] <= self.canvas.coords(self.player.obj)[1] + 20
-                if (colision_X == True ) and (colision_Y==True ) :
+                if colision_X and colision_Y :
                     detruire_proj_enemy.add(prj)
                     self.player.life -= 1
-                    print("coucou")
+                    print(detruire_proj_enemy)
 
             for k in detruire_proj_enemy :
                 self.canvas.delete(k)
-                self.enmy.liste_projectile_enemy.remove(k)
+                enmy.liste_projectile_enemy.remove(k)
+                print("deleete")
         if self.player.life < 0 :
             print("perdu")
         self.canvas.after(100,self.mort_player)
