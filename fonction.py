@@ -122,7 +122,7 @@ class Monde () :
         y = 50
         for i in range(self.lvl) :
             mechant = Monstre(
-                vie=1,coord=[x,y],nom_image="image/lighter.gif",canvas=self.canvas)
+                vie=1,coord=[x,y],nom_image="image/alien_transparent.png",canvas=self.canvas)
             mechant.create()
             self.liste_enemy.append(mechant)
             x += 150
