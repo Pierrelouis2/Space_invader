@@ -1,12 +1,10 @@
 import fonction as fct
 from tkinter import *
 
-
 fen = Tk()
 
 frame1=Frame(fen)
 frame1.pack(side=TOP)
-
 
 #titre + score
 score = 0
@@ -28,27 +26,20 @@ canvas.pack()
 
 #bouton
 Button(frame1, text ='A propos').pack(side='left', padx=5, pady=5)
-Button(frame1, text ='Niveau suivant').pack(side='right', padx=5, pady=5)
-"""
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-"""
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #création du monde
-monde = fct.Monde(canvas=canvas, texte=texte)
-score = monde.var
+monde = fct.Monde(canvas=canvas,texte=texte)
 
+#bouton début de jeu
+bouton_jouer = Button(frame1, text="Jouer", command=monde.jouer)
+bouton_jouer.pack()
 
 #mouvement du joueur                          
 canvas.focus_set()
 canvas.bind('<Key>', monde.mouv)
 
- 
- #bouton début de jeu
-bouton_jouer = Button(frame1, text="Jouer", command=monde.jouer )
-bouton_jouer.pack()
-   
 #initialisation mvt enemy
 monde.path_monster()
 
@@ -66,7 +57,5 @@ monde.mort_player()
 #initialisation niveau
 monde.niveau()
 
-fen.mainloop()
-
-
-
+monde.col_asteroid()
+fen.mainloop() 
