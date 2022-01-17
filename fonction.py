@@ -137,6 +137,17 @@ class Monde () :
         self.var=StringVar()
         self.var.set("Score="+str(self.score))
 
+    def openFile(self):
+        """
+        openFile
+        Description:
+        Permet d'ouvrir le fichier texte pour les règles du jeu
+        """
+        with open('Règle_du_jeu.txt', encoding='utf8') as f:
+            for line in f:
+                print(line.strip())
+            
+
     def jouer(self) :
         """
         jouer

@@ -32,6 +32,9 @@ Button(frame1, text ='A propos').pack(side='left', padx=5, pady=5)
 #création du monde
 monde = fct.Monde(canvas=canvas,texte=texte)
 
+#bouton
+Button(frame1, text ='A propos', command=monde.openFile).pack(side='left', padx=5, pady=5)
+
 #bouton début de jeu
 bouton_jouer = Button(frame1, text="Jouer", command=monde.jouer)
 bouton_jouer.pack()

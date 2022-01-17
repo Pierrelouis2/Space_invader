@@ -1,11 +1,11 @@
 Bienvenue dans Space Invader
 
-Règles du jeu:
-•	Vous contrôlez un vaisseau pouvant tirer
-•	Les ennemis descendent dans la zone de jeu
-•	Les aliens sont éliminées en 1 coup.
-•	Les aliens rapportent 50 points.
+Regles du jeu:
+ï¿½	Vous controlez un vaisseau pouvant tirer
+ï¿½	Les ennemis descendent dans la zone de jeu
+ï¿½	Les aliens sont eliminees en 1 coup.
+ï¿½	Les aliens rapportent 50 points.
 Fonctionnement
-•	Appuyez sur Jouer pour démarrer le jeu
-•	Utilisez les flèches gauche et droite pour diriger le vaisseau
-•	Appuyez sur Espace pour tirer
+ï¿½	Appuyez sur Jouer pour demarrer le jeu
+ï¿½	Utilisez les fleches gauche et droite pour diriger le vaisseau
+ï¿½	Appuyez sur Espace pour tirer
