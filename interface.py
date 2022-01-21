@@ -24,8 +24,6 @@ canvas = Canvas(fen, width=photo.width(), height=photo.height(), background="whi
 canvas.create_image(0, 0, anchor=NW, image=photo)
 canvas.pack()
 
-#bouton
-Button(frame1, text ='A propos').pack(side='left', padx=5, pady=5)
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -33,7 +31,7 @@ Button(frame1, text ='A propos').pack(side='left', padx=5, pady=5)
 monde = fct.Monde(canvas=canvas,texte=texte)
 
 #bouton
-Button(frame1, text ='A propos', command=monde.openFile).pack(side='left', padx=5, pady=5)
+Button(frame1, text ='A propos', command=monde.createNewWindow).pack(side='left', padx=5, pady=5)
 
 #bouton début de jeu
 bouton_jouer = Button(frame1, text="Jouer", command=monde.jouer)
