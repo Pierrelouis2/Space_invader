@@ -5,6 +5,7 @@ Regles du jeu:
 �	Les ennemis descendent dans la zone de jeu
 �	Les aliens sont eliminees en 1 coup.
 �	Les aliens rapportent 50 points.
+�	Toutes les 10 vagues un enemies bonus apparait qui raporte 100 pts.
 Fonctionnement
 �	Appuyez sur Jouer pour demarrer le jeu
 �	Utilisez les fleches gauche et droite pour diriger le vaisseau
