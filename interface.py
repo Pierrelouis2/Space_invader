@@ -1,4 +1,4 @@
-import fonction as fct
+import Monde as fct
 from tkinter import *
 
 fen = Tk()

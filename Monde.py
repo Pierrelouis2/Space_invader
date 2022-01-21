@@ -1,121 +1,12 @@
-import time
-from tkinter.constants import TRUE
+
 from tkinter import *
 import random
-from tracemalloc import stop
+from Joueur import *
+from Monstre import *
 
-class Entity()   :
-    """
-    Entity
-    Description:
-    cree la base de chaque mechant asteroide ou joueur
-    """
-    def __init__(self,vie,coord,canvas,nom_image) :
-        self.coord = coord #position de l'entité au début
-        self.life = vie #vie de l'entité
-        self.canvas=canvas
-        self.nom_image=nom_image
-        self.liste_projectile = []
-        self.liste_projectile_enemy = []
 
-    def create(self):
-        """
-        create
-        Description:
-        cree l entité sur ke canvas
-        """
-        print("testse",self.nom_image)
-        self.photo=PhotoImage(file=self.nom_image)
-        self.obj = self.canvas.create_image(self.coord[0],self.coord[1],image=self.photo)
-class Monstre(Entity):
-    """
-    Monstre
-    Description:
-    Class qui gere les tirs/projectiles des monstres
-    """
-    def tir_enemy(self) :
-        """
-        tir_enemy
-        Description:
-        cree les projectiles
-        """
-        xp1 = self.canvas.coords(self.obj)[0] -5
-        xp2 = self.canvas.coords(self.obj)[0] +5
-        yp1 = self.canvas.coords(self.obj)[1] -7
-        yp2 = self.canvas.coords(self.obj)[1] +7
-        self.liste_projectile_enemy.append(self.canvas.create_oval(xp1,yp1,xp2,yp2,fill="red"))
-        
-    def traj_tir_enemy(self) :
-        """
-        traj_tir_enemy
-        Description:
-        gere la trajectoire des missiles des monstres
-        """
+                    
 
-        for i in self.liste_projectile_enemy :
-            if i != [] :
-                if self.canvas.coords(i)[1] < 1200 :
-                    self.canvas.move(i,0,10)
-
-                
-                else :
-                    self.canvas.delete(i) 
-                    self.liste_projectile_enemy.remove(i)
-        self.canvas.after(50,self.traj_tir_enemy)                    
-class Joueur(Entity):
-    """
-    Joueur
-    Description:
-    class qui gère le joueur
-    """
-    def mouvement(self,event) :
-        """
-        mouvement
-        Description:
-        deplace le joueur sur le canvas
-        """
-        touche = event.keysym
-        if touche == "Right" :
-            
-            if self.canvas.coords(self.obj)[0] < 1880 :
-                self.canvas.move(self.obj,10,0)
-            else :
-                print("pas bon droite")
-        if touche == "Left" :
-            if self.canvas.coords(self.obj)[0] >40 :
-                    self.canvas.move(self.obj,-10,0)
-            else :
-                print("pas bon gauche")
-
-    def tir(self) :
-        """
-        tir
-        Description:
-        cree le projectiles du joueur
-        """
-        
-        xp1 = self.canvas.coords(self.obj)[0] +5
-        xp2 = self.canvas.coords(self.obj)[0] -5
-        yp1 = 828
-        yp2 = 842
-        self.liste_projectile.append(self.canvas.create_oval(xp1,yp1,xp2,yp2,fill="yellow"))
-    
-    def trajectoire(self) :
-        """
-        trajectoire
-        Description:
-        gere la trajectoire des missiles du joueur
-        """
-        
-        for i in self.liste_projectile :
-    
-            if self.canvas.coords(i)[3] > 5 :
-                self.canvas.move(i,0,-10)
-                
-            else :
-                self.canvas.delete(i) 
-                self.liste_projectile.remove(i)
-        self.canvas.after(50,self.trajectoire)
 class Monde () :
     """
     Monde
