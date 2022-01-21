@@ -24,6 +24,7 @@ class Entity()   :
         Description:
         cree l entité sur ke canvas
         """
+        print("testse",self.nom_image)
         self.photo=PhotoImage(file=self.nom_image)
         self.obj = self.canvas.create_image(self.coord[0],self.coord[1],image=self.photo)
 class Monstre(Entity):
@@ -131,9 +132,9 @@ class Monde () :
         self.score=0
         self.dir_enemy_x = 5
         self.dir_enemy_y = 0
-        self.lvl =0
+        self.lvl =5
         self.liste_asteroid = []
-
+        self.passe = False
         self.var=StringVar()
         self.var.set("Score="+str(self.score))
 
@@ -154,6 +155,7 @@ class Monde () :
         Description:
         permet de remettre a 0 le jeu
         """
+        print("jouer")
         for i in self.liste_enemy :
             for k in i.liste_projectile_enemy :
                 self.canvas.delete(k)
@@ -170,16 +172,17 @@ class Monde () :
         self.score = 0
         self.player.life = 3
         self.score_fct()
-
+        self.passe = True
     def niveau(self) :
         """
         niveau
         Description:
         augmente la difficulté de 1 quand tous les mechant sont morts
         """
-        if self.liste_enemy == [] :
-            self.lvl +=1
-            self.create_monster(lvl=self.lvl)
+        if self.passe == True :
+            if self.liste_enemy == [] :
+                self.lvl +=1
+                self.create_monster(lvl=self.lvl)
         self.canvas.after(10,self.niveau)
 
     def create_monster(self,lvl) :
@@ -189,16 +192,26 @@ class Monde () :
         cree les mechant en fonction du niveau/difficulté
         """
         self.lvl = lvl
-        
         x = 60
         y = 50
-        for i in range(self.lvl) :
-            mechant = Monstre(
-                vie=1,coord=[x,y],nom_image="image/alien_transparent.png",canvas=self.canvas)
-            mechant.create()
-            mechant.traj_tir_enemy()
-            self.liste_enemy.append(mechant)
-            x += 150
+        if self.lvl == 10 :
+            print("lvl 10")
+            x =900
+            y = 100
+            bonus = Monstre(
+                vie=25,coord=[x,y],nom_image="image/bonussok.png",canvas=self.canvas)
+            bonus.create()
+            bonus.traj_tir_enemy()
+            self.liste_enemy.append(bonus)
+            self.lvl = 1
+        else :
+            for i in range(self.lvl) :
+                mechant = Monstre(
+                    vie=1,coord=[x,y],nom_image="image/alien_transparent.png",canvas=self.canvas)
+                mechant.create()
+                mechant.traj_tir_enemy()
+                self.liste_enemy.append(mechant)
+                x += 150
 
     def path_monster(self) :
         """
@@ -264,10 +277,13 @@ class Monde () :
         for j in self.liste_enemy:
             for i in self.player.liste_projectile :
                 colision_X= self.canvas.coords(j.obj)[0] -60 <= self.canvas.coords(i)[0] <= self.canvas.coords(j.obj)[0] + 60
-                colision_Y= self.canvas.coords(i)[1] <= self.canvas.coords(j.obj)[1] + 50
+                colision_Y= self.canvas.coords(j.obj)[1] - 50 <= self.canvas.coords(i)[1] <= self.canvas.coords(j.obj)[1] + 50
                 if (colision_X == True ) and (colision_Y==True ) :
-                    detruire_enemy.add(j)
+                    j.life -= 1
                     detruire_proj.add(i)
+                    if j.life == 0 :
+                        detruire_enemy.add(j)
+                        
  
         for k in detruire_proj :
             self.canvas.delete(k)
@@ -278,8 +294,12 @@ class Monde () :
                 self.canvas.delete(l)
             self.canvas.delete(t.obj)
             self.liste_enemy.remove(t)
-            self.score+=50
-            self.score_fct()
+            if t.coord[0] == 900 :
+                self.score+=100
+                self.score_fct()
+            else : 
+                self.score+=50
+                self.score_fct()
         self.canvas.after(100,self.mort_enemy)
     
     def mort_player(self) :
@@ -292,7 +312,7 @@ class Monde () :
             detruire_proj_enemy = set()
             for prj  in enmy.liste_projectile_enemy :
                 colision_X= self.canvas.coords(self.player.obj)[0] -30 <= self.canvas.coords(prj)[0] <= self.canvas.coords(self.player.obj)[0] + 30
-                colision_Y=self.canvas.coords(self.player.obj)[1] -20 <= self.canvas.coords(prj)[1] 
+                colision_Y=self.canvas.coords(self.player.obj)[1] -20 <= self.canvas.coords(prj)[1] <= self.canvas.coords(self.player.obj)[1] +20
                 if colision_X and colision_Y :
                     detruire_proj_enemy.add(prj)
                     self.player.life -= 1
@@ -306,6 +326,14 @@ class Monde () :
         if self.player.life == 0 :
             self.canvas.delete(self.player.obj)
             self.player= ''
+            for i in self.liste_enemy :
+                for k in i.liste_projectile_enemy :
+                    self.canvas.delete(k)
+            self.canvas.delete(i.obj)
+            self.liste_enemy =[]
+            for i in self.liste_asteroid :
+                self.canvas.delete(i)
+            self.liste_asteroid=[]
         self.canvas.after(100,self.mort_player)
 
     def create_asteroid(self) :
@@ -362,5 +390,4 @@ class Monde () :
             self.canvas.delete(k)
             self.player.liste_projectile.remove(k)
 
-        
         self.canvas.after(50,self.col_asteroid)
